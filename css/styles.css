@@ -1,35 +1,29 @@
-/* Charte graphique IVOIRE BOX - Palette Chaude Luxe */
+/* Charte graphique IVOIRE BOX - Officielle */
 :root{
-  /* Couleurs principales - Palette chaude */
-  --primary:#1A1A1A;
-  --accent-red:#FF0000;
-  --accent-orange:#FF6600;
-  --accent-yellow:#FFFACD;
-  --accent-gold:#F5C842;
-  --accent-green:#00CC33;
-  --accent-blue:#0066FF;
-  --light-bg:#F2F2F2;
-  --dark-bg:#333333;
-  --white:#FFFFFF;
-  --text-primary:#1A1A1A;
-  --text-secondary:#666666;
-  --accent-primary:#FF6600;
-  /* Typographie - Charte officielle */
-  --font-heading:'Montserrat','Arial',sans-serif;
-  --font-body:'Times New Roman','Georgia',serif;
-  --font-semibold:'Trebuchet MS','Arial',sans-serif;
+  /* Couleurs primaires officielles */
+  --accent-primary:#E75D24;  /* Orange primaire */
+  --accent-green:#09BD45;    /* Vert primaire */
+  --primary:#1A1A1A;         /* Noir */
+  --light-bg:#F2F2F2;        /* Gris clair */
+  --dark-bg:#333333;         /* Gris fonc\u00e9 */
+  --white:#FFFFFF;           /* Blanc */
+  --text-primary:#1A1A1A;    /* Texte noir */
+  --text-secondary:#666666;  /* Texte gris */
+  
+  /* Typographie - Police unique Montserrat */
+  --font-primary:'Montserrat',sans-serif;  /* Unique police officielle */
 }
 
 /* Reset simple */
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:var(--font-body);line-height:1.6;color:var(--text-primary)}
+html,body{height:100%;font-family:var(--font-primary);font-weight:300;line-height:1.6;color:var(--text-primary)}
 .container{max-width:1000px;margin:0 auto;padding:1rem}
 
 .site-header{position:sticky;top:0;z-index:50;background:var(--primary);color:var(--white);box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 .site-header .container{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1rem}
-.logo{font-weight:700;color:var(--accent-primary);text-decoration:none;font-family:var(--font-heading);font-size:1.4rem}
+.logo{font-weight:900;color:var(--accent-primary);text-decoration:none;font-family:var(--font-primary);font-size:1.4rem}
 .main-nav{display:flex;gap:0.75rem;align-items:center}
-.main-nav a{color:var(--white);margin-left:0.5rem;text-decoration:none;padding:0.5rem 0.75rem;border-radius:4px;transition:all .2s ease;font-family:var(--font-semibold);font-weight:500}
+.main-nav a{color:var(--white);margin-left:0.5rem;text-decoration:none;padding:0.5rem 0.75rem;border-radius:4px;transition:all .2s ease;font-family:var(--font-primary);font-weight:700}
 .main-nav a:hover,.main-nav a:focus{background:var(--accent-primary);color:var(--white);outline:none}
 .main-nav a.active{border-bottom:3px solid var(--accent-primary)}
 .nav-toggle{display:none;background:none;border:0;color:var(--white);width:44px;height:40px;align-items:center;justify-content:center;cursor:pointer}
@@ -44,28 +38,28 @@ html,body{height:100%;font-family:var(--font-body);line-height:1.6;color:var(--t
 .main-nav.open{display:flex;flex-direction:column;gap:0.6rem;padding:1rem;border-radius:8px}
 
 .hero{background:linear-gradient(135deg,var(--primary) 0%,var(--dark-bg) 100%);color:var(--white);padding:3rem 0}
-.hero h1{font-size:2.5rem;margin-bottom:0.5rem;font-family:var(--font-heading);color:var(--accent-primary)}
-.hero p{opacity:0.95;font-size:1.1rem;font-family:var(--font-body)}
-.btn{display:inline-block;background:var(--accent-primary);color:var(--white);padding:0.8rem 1.5rem;border-radius:4px;text-decoration:none;font-weight:600;font-family:var(--font-semibold);transition:all .2s ease;border:2px solid var(--accent-primary)}
-.btn:hover{background:#CC5200;border-color:#CC5200;transform:translateY(-2px)}
+.hero h1{font-size:2.5rem;margin-bottom:0.5rem;font-family:var(--font-primary);font-weight:900;color:var(--accent-primary)}
+.hero p{opacity:0.95;font-size:1.1rem;font-family:var(--font-primary);font-weight:300}
+.btn{display:inline-block;background:var(--accent-primary);color:var(--white);padding:0.8rem 1.5rem;border-radius:4px;text-decoration:none;font-weight:700;font-family:var(--font-primary);transition:all .2s ease;border:2px solid var(--accent-primary)}
+.btn:hover{background:#d4521f;border-color:#d4521f;transform:translateY(-2px)}
 .mt-2{margin-top:1rem}
 
 .about{padding:2rem 0}
-.about h2{font-family:var(--font-heading);color:var(--accent-primary);margin-bottom:1rem}
+.about h2{font-family:var(--font-primary);font-weight:700;color:var(--accent-primary);margin-bottom:1rem}
 
 .services .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
-.services h1{font-family:var(--font-heading);color:var(--accent-primary)}
-.services h2{font-family:var(--font-heading);color:var(--accent-primary)}
-.card{background:var(--white);padding:1.5rem;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);border-top:4px solid var(--accent-primary);transition:transform .2s ease}
-.card h3{margin-bottom:0.5rem;font-family:var(--font-heading);color:var(--primary);font-weight:600}
-.card p{font-family:var(--font-body)}
+.services h1{font-family:var(--font-primary);font-weight:900;color:var(--accent-primary)}
+.services h2{font-family:var(--font-primary);font-weight:700;color:var(--accent-primary)}
+.card{background:var(--white);padding:1.5rem;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);border-top:4px solid var(--accent-green);transition:transform .2s ease}
+.card h3{margin-bottom:0.5rem;font-family:var(--font-primary);font-weight:700;color:var(--primary)}
+.card p{font-family:var(--font-primary);font-weight:300}
 .card:hover{transform:translateY(-4px)}
 
 .contact-form{display:grid;grid-template-columns:1fr;gap:0.8rem;max-width:600px}
-.contact-form input,.contact-form textarea{padding:0.8rem;border:2px solid var(--accent-primary);border-radius:4px;font-family:var(--font-body)}
-.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:#CC5200;box-shadow:0 0 0 3px rgba(255,102,0,0.1)}
-.contact-form label{font-weight:600;font-family:var(--font-heading);color:var(--primary)}
-.contact h1{font-family:var(--font-heading);color:var(--accent-primary)}
+.contact-form input,.contact-form textarea{padding:0.8rem;border:2px solid var(--accent-primary);border-radius:4px;font-family:var(--font-primary);font-weight:300}
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:#d4521f;box-shadow:0 0 0 3px rgba(231,93,36,0.1)}
+.contact-form label{font-weight:700;font-family:var(--font-primary);color:var(--primary)}
+.contact h1{font-family:var(--font-primary);font-weight:900;color:var(--accent-primary)}
 
 .site-footer{background:var(--primary);padding:1.5rem 0;margin-top:2rem;color:var(--white)}
 .site-footer p{text-align:center;font-size:0.9rem}
