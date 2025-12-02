@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Enveloppe/Boîte aux lettres Ivoire Box -->
+  <rect width="64" height="64" fill="#E75D24" rx="8"/>
+  <!-- Enveloppe -->
+  <path d="M 12 20 L 32 32 L 52 20 M 12 20 L 12 44 L 52 44 L 52 20" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linejoin="round"/>
+</svg>
