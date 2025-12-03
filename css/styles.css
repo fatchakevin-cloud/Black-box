@@ -146,4 +146,15 @@ html,body{height:100%;font-family:var(--font-primary);font-weight:300;line-heigh
 @media (max-width:800px){
   .features .grid{grid-template-columns:1fr}
   .testimonials .grid{grid-template-columns:1fr}
+  /* Stack illustration and text on smaller screens */
+  .features-illustration{flex-direction:column;align-items:flex-start}
+  .features-illustration img{max-width:100%;width:100%;height:auto;margin-bottom:1rem}
+}
+
+@media (max-width:560px){
+  /* Ensure illustration and features are comfortably spaced on mobile */
+  .features-illustration{gap:1rem}
+  .features-illustration p{font-size:0.95rem}
+  .hero{padding:2.5rem 1rem}
+  .container{padding:1rem}
 }
