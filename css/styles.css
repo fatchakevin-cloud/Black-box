@@ -142,8 +142,8 @@ html,body{height:100%;font-family:var(--font-primary);font-weight:300;line-heigh
 .faq .question::after{content:'▼';font-size:0.8rem;transition:transform .3s ease}
 .faq .item.open .question{background:var(--accent-primary)}
 .faq .item.open .question::after{transform:rotate(180deg)}
-.faq .answer{padding:1.2rem;max-height:0;overflow:hidden;background:var(--white);border-left:4px solid var(--accent-primary);transition:max-height .35s ease;color:var(--text-secondary);line-height:1.7;display:none}
-.faq .item.open .answer{max-height:800px;display:block}
+.faq .answer{padding:1.2rem;max-height:0;overflow:hidden;background:var(--white);border-left:4px solid var(--accent-primary);transition:max-height .35s ease;color:var(--text-secondary);line-height:1.7}
+.faq .item.open .answer{max-height:800px}
 
 /* CTA section */
 .cta{padding:3rem 0;text-align:center}
