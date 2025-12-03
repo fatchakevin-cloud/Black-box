@@ -37,7 +37,7 @@
           <!-- Formulaire de contact -->
           <div class="contact-form-section">
             <h2>Envoyez-nous un message</h2>
-            <form class="contact-form" action="https://formspree.io/f/xyzpqrst" method="POST">
+            <form id="contactForm" class="contact-form" action="https://formspree.io/f/xyzpqrst" method="POST" data-wa-number="2250714606562">
               <div class="form-group">
                 <label for="name">Nom complet</label>
                 <input id="name" name="name" type="text" required placeholder="Votre nom">
@@ -63,7 +63,10 @@
                 <textarea id="message" name="message" rows="6" required placeholder="Décrivez votre demande en détail..."></textarea>
               </div>
 
-              <button class="btn btn-primary" type="submit">Envoyer le message</button>
+              <div style="display:flex;gap:0.75rem;align-items:center">
+                <button class="btn btn-primary" type="submit">Envoyer le message</button>
+                <label style="font-weight:400;font-size:0.95rem;margin-left:0.5rem"><input id="sendWhatsApp" type="checkbox" checked style="margin-right:0.4rem"> Envoyer aussi via WhatsApp (pré-rempli)</label>
+              </div>
             </form>
           </div>
 

@@ -121,6 +121,19 @@ html,body{height:100%;font-family:var(--font-primary);font-weight:300;line-heigh
 .testimonials .card{border-left:4px solid var(--accent-primary);background:var(--white)}
 .testimonial-author{margin-top:1rem;font-weight:700}
 
+/* Carousel styles */
+.testimonials .grid{display:flex;gap:1rem;overflow:hidden;position:relative}
+.testimonial-slide{min-width:100%;flex-shrink:0;transition:transform .5s ease}
+.testimonials .controls{position:absolute;right:1rem;top:1rem;display:flex;gap:0.5rem}
+.control-btn{background:rgba(0,0,0,0.06);border:0;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer}
+
+/* Micro interactions */
+.card{transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(0,0,0,0.12)}
+.btn{transition:transform .15s ease,box-shadow .15s ease}
+.btn:active{transform:translateY(1px)}
+
+
 /* FAQ */
 .faq{padding:3rem 0;background:var(--white)}
 .faq .item{margin-bottom:1rem}
