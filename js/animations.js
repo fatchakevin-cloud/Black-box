@@ -1,31 +1,8 @@
 // Simple animation helpers: reveal on scroll + smooth scroll for anchors
 document.addEventListener('DOMContentLoaded', function(){
-  // Reveal on scroll using IntersectionObserver
+  // Reveal on scroll - SIMPLIFIED: content is visible by default, just add light fade animation
   const reveals = document.querySelectorAll('.reveal-hidden');
-  if('IntersectionObserver' in window){
-    const obs = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('reveal-visible');
-          entry.target.classList.add('fade-in-up');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {threshold: 0.12});
-    reveals.forEach(el => obs.observe(el));
-    // Safety fallback: if observer doesn't trigger (rare), reveal after 1.5s
-    setTimeout(() => {
-      reveals.forEach(el => {
-        if(!el.classList.contains('reveal-visible')){
-          el.classList.add('reveal-visible');
-          el.classList.add('fade-in-up');
-        }
-      });
-    }, 1500);
-  } else {
-    // Fallback: show all
-    reveals.forEach(el => el.classList.add('reveal-visible'));
-  }
+  reveals.forEach(el => el.classList.add('fade-in-up'));
 
   // Smooth scroll for internal links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
