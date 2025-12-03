@@ -13,29 +13,21 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  // FAQ accordion
-  const faqItems = document.querySelectorAll('.faq .item');
-  console.log('FAQ items found:', faqItems.length);
-  faqItems.forEach(item => {
-    const q = item.querySelector('.question');
-    const a = item.querySelector('.answer');
-    console.log('FAQ item:', {q, a});
-    if(q && a){
-      // Use CSS max-height animation by toggling .open on the item
-      item.classList.remove('open');
-      q.setAttribute('role','button');
-      q.setAttribute('aria-expanded','false');
-      q.style.cursor = 'pointer';
-      q.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Question clicked');
-        const isOpen = item.classList.toggle('open');
-        q.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        console.log('FAQ toggled:', isOpen);
-      });
-    }
-  });
+  // FAQ accordion - SIMPLIFIED APPROACH
+  (function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq .item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.question');
+      if (question) {
+        question.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          // Toggle the .open class
+          item.classList.toggle('open');
+        });
+      }
+    });
+  })();
   
   /* Testimonials carousel (separate from FAQ) */
   (function initTestimonials(){
