@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     }, {threshold: 0.12});
     reveals.forEach(el => obs.observe(el));
+    // Safety fallback: if observer doesn't trigger (rare), reveal after 1.5s
+    setTimeout(() => {
+      reveals.forEach(el => {
+        if(!el.classList.contains('reveal-visible')){
+          el.classList.add('reveal-visible');
+          el.classList.add('fade-in-up');
+        }
+      });
+    }, 1500);
   } else {
     // Fallback: show all
     reveals.forEach(el => el.classList.add('reveal-visible'));
