@@ -33,20 +33,68 @@
         <h1>Parlons de votre projet</h1>
         <p>Contactez-nous pour discuter de vos besoins en boîtes aux lettres et découvrez comment Ivoire Box peut vous aider.</p>
 
-        <form class="contact-form" action="#" method="post">
-          <label for="name">Nom complet</label>
-          <input id="name" name="name" type="text" required>
+        <div class="contact-wrapper">
+          <!-- Formulaire de contact -->
+          <div class="contact-form-section">
+            <h2>Envoyez-nous un message</h2>
+            <form class="contact-form" action="https://formspree.io/f/xyzpqrst" method="POST">
+              <div class="form-group">
+                <label for="name">Nom complet</label>
+                <input id="name" name="name" type="text" required placeholder="Votre nom">
+              </div>
 
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" required>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required placeholder="votre@email.com">
+              </div>
 
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="6" required placeholder="Décrivez votre projet..."></textarea>
+              <div class="form-group">
+                <label for="phone">Téléphone (optionnel)</label>
+                <input id="phone" name="phone" type="tel" placeholder="+225 XX XX XX XX">
+              </div>
 
-          <button class="btn" type="submit">Envoyer</button>
-        </form>
+              <div class="form-group">
+                <label for="subject">Sujet</label>
+                <input id="subject" name="subject" type="text" required placeholder="Ex: Demande de boîte individuelle">
+              </div>
 
-        <p class="mt-2">Ou appelez-nous directement à <a href="tel:+225XXXXXXXXX">+225 XX XX XX XX</a></p>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Décrivez votre demande en détail..."></textarea>
+              </div>
+
+              <button class="btn btn-primary" type="submit">Envoyer le message</button>
+            </form>
+          </div>
+
+          <!-- Coordonnées de contact -->
+          <div class="contact-info-section">
+            <h2>Contactez-nous directement</h2>
+            
+            <div class="contact-method">
+              <h3>📧 Email</h3>
+              <p><a href="mailto:infoagnakcorporation@gmail.com" class="contact-link">infoagnakcorporation@gmail.com</a></p>
+              <p class="contact-desc">Réponse sous 24h</p>
+            </div>
+
+            <div class="contact-method">
+              <h3>💬 WhatsApp</h3>
+              <p><a href="https://wa.me/2250714606562?text=Bonjour%20Ivoire%20Box%2C%20je%20suis%20intéressé%20par%20vos%20services%20de%20boîtes%20aux%20lettres" class="contact-link" target="_blank">+225 07 14 60 65 62</a></p>
+              <p class="contact-desc">Réponse immédiate</p>
+            </div>
+
+            <div class="contact-method">
+              <h3>👤 Propriétaire</h3>
+              <p><strong>Cédric</strong></p>
+              <p class="contact-desc">Directeur - Ivoire Box</p>
+            </div>
+
+            <div class="cta-buttons">
+              <a href="https://wa.me/2250714606562?text=Bonjour%20Ivoire%20Box%2C%20je%20suis%20intéressé%20par%20vos%20services%20de%20boîtes%20aux%20lettres" class="btn btn-whatsapp" target="_blank">💬 Discuter sur WhatsApp</a>
+              <a href="mailto:infoagnakcorporation@gmail.com" class="btn btn-email">📧 Envoyer un email</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
