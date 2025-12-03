@@ -137,5 +137,26 @@
 
   <script src="js/nav.js" defer></script>
   <script src="js/animations.js" defer></script>
+  
+  <!-- Inline FAQ script to ensure it runs -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize FAQ accordion
+      const faqItems = document.querySelectorAll('.faq .item');
+      console.log('Initializing FAQ with', faqItems.length, 'items');
+      
+      faqItems.forEach(item => {
+        const question = item.querySelector('.question');
+        if (question) {
+          question.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('FAQ item clicked, toggling open');
+            item.classList.toggle('open');
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
