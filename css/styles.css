@@ -48,7 +48,7 @@ html,body{height:100%;font-family:var(--font-primary);font-weight:300;line-heigh
 .about h2{font-family:var(--font-primary);font-weight:700;color:var(--accent-green);margin-bottom:1rem}
 
 .services{padding:3rem 0;background:var(--white)}
-.services .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2rem}
+.services .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:2rem}
 .services h1{font-family:var(--font-primary);font-weight:900;color:var(--accent-green);margin-bottom:1rem;font-size:2.2rem}
 .services h2{font-family:var(--font-primary);font-weight:700;color:var(--accent-green)}
 .card{background:var(--white);padding:2rem;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-top:4px solid var(--accent-green);transition:transform .2s ease}
