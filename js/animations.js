@@ -55,11 +55,29 @@ document.addEventListener('DOMContentLoaded', function(){
   
   /* Testimonials carousel (separate from FAQ) */
   (function initTestimonials(){
-    const carousel = document.querySelector('.testimonials .grid');
+    const carousel = document.querySelector('.testimonials-carousel');
     if(!carousel) return;
     const slides = carousel.querySelectorAll('.testimonial-slide');
+    const indicatorsContainer = document.querySelector('.testimonials-indicators');
     const total = slides.length;
     if(total === 0) return;
+
+    // Create indicators
+    if(indicatorsContainer && total > 1){
+      for(let i = 0; i < total; i++){
+        const indicator = document.createElement('span');
+        indicator.className = 'testimonial-indicator' + (i === 0 ? ' active' : '');
+        indicator.setAttribute('aria-label', 'Témoignage ' + (i + 1));
+        indicator.addEventListener('click', () => goToSlide(i));
+        indicator.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          goToSlide(i);
+        });
+        indicatorsContainer.appendChild(indicator);
+      }
+    }
+
+    const indicators = document.querySelectorAll('.testimonial-indicator');
 
     // position slides horizontally
     slides.forEach((s, n) => { s.style.transform = `translateX(${n * 100}%)`; });
@@ -69,16 +87,60 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function show(i){
       slides.forEach((s, n) => { s.style.transform = `translateX(${(n - i) * 100}%)`; });
+      indicators.forEach((ind, n) => {
+        ind.classList.toggle('active', n === i);
+      });
+    }
+
+    function goToSlide(index){
+      if(index >= 0 && index < total){
+        idx = index;
+        show(idx);
+        resetInterval();
+      }
     }
 
     function start(){
       if(intervalId) return;
-      intervalId = setInterval(() => { idx = (idx + 1) % total; show(idx); }, 5000);
+      if(total > 1){
+        intervalId = setInterval(() => { 
+          idx = (idx + 1) % total; 
+          show(idx); 
+        }, 5000);
+      }
     }
 
     function stop(){
       if(intervalId){ clearInterval(intervalId); intervalId = null; }
     }
+
+    function resetInterval(){
+      stop();
+      start();
+    }
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', function(e){
+      touchStartX = e.touches[0].clientX;
+      stop();
+    }, {passive: true});
+
+    carousel.addEventListener('touchend', function(e){
+      touchEndX = e.changedTouches[0].clientX;
+      const diff = touchStartX - touchEndX;
+      if(Math.abs(diff) > 50){
+        if(diff > 0){
+          goToSlide((idx + 1) % total);
+        } else {
+          goToSlide((idx - 1 + total) % total);
+        }
+      } else {
+        resetInterval();
+      }
+    }, {passive: true});
 
     // start automatically
     show(idx);
