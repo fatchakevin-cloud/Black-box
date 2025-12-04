@@ -28,76 +28,214 @@
   </header>
 
   <main>
+    <!-- Hero Section Contact -->
+    <section class="hero">
+      <div class="container">
+        <h1>Contactez-nous</h1>
+        <p>Notre équipe est à votre écoute pour répondre à toutes vos questions et vous accompagner dans votre projet de boîte aux lettres sécurisée.</p>
+      </div>
+    </section>
+
+    <!-- Pourquoi nous contacter -->
+    <section class="features" style="padding:3rem 0;background:var(--white)">
+      <div class="container">
+        <h2 class="reveal-hidden" style="text-align:center;color:var(--accent-green);margin-bottom:2rem">Pourquoi nous contacter ?</h2>
+        
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem">
+          <div class="feature reveal-hidden reveal-delay-1" style="text-align:center">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.8rem">📋 Devis gratuit</h4>
+            <p>Obtenez un devis personnalisé et détaillé sous 24h, sans engagement de votre part.</p>
+          </div>
+
+          <div class="feature reveal-hidden reveal-delay-2" style="text-align:center">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.8rem">🏠 Visite technique</h4>
+            <p>Un technicien se déplace gratuitement pour évaluer votre site et vous proposer la meilleure solution.</p>
+          </div>
+
+          <div class="feature reveal-hidden reveal-delay-3" style="text-align:center">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.8rem">💡 Conseil expert</h4>
+            <p>Bénéficiez des conseils de nos experts pour choisir la solution la plus adaptée à vos besoins.</p>
+          </div>
+
+          <div class="feature reveal-hidden reveal-delay-1" style="text-align:center">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.8rem">⚡ Réponse rapide</h4>
+            <p>Notre équipe vous répond rapidement, généralement dans les 2 heures suivant votre demande.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="contact">
       <div class="container">
-        <h1>Parlons de votre projet</h1>
-        <p>Contactez-nous pour discuter de vos besoins en boîtes aux lettres et découvrez comment Ivoire Box peut vous aider.</p>
+        <h2 class="reveal-hidden" style="text-align:center;color:var(--accent-green);margin-bottom:1rem">Parlons de votre projet</h2>
+        <p class="reveal-hidden reveal-delay-1" style="text-align:center;margin-bottom:2rem;color:var(--text-secondary);max-width:700px;margin-left:auto;margin-right:auto">Remplissez le formulaire ci-dessous ou contactez-nous directement. Nous vous répondrons dans les plus brefs délais.</p>
 
         <div class="contact-wrapper">
           <!-- Formulaire de contact -->
-          <div class="contact-form-section">
+          <div class="contact-form-section reveal-hidden">
             <h2>Envoyez-nous un message</h2>
+            <p style="color:var(--text-secondary);margin-bottom:1.5rem;font-size:0.95rem">Tous les champs marqués d'un * sont obligatoires</p>
+            
             <form id="contactForm" class="contact-form" action="https://formspree.io/f/xyzpqrst" method="POST" data-wa-number="2250714606562">
               <div class="form-group">
-                <label for="name">Nom complet</label>
-                <input id="name" name="name" type="text" required placeholder="Votre nom">
+                <label for="name">Nom complet *</label>
+                <input id="name" name="name" type="text" required placeholder="Votre nom et prénom">
               </div>
 
               <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email">Email *</label>
                 <input id="email" name="email" type="email" required placeholder="votre@email.com">
               </div>
 
               <div class="form-group">
-                <label for="phone">Téléphone (optionnel)</label>
-                <input id="phone" name="phone" type="tel" placeholder="+225 XX XX XX XX">
+                <label for="phone">Téléphone *</label>
+                <input id="phone" name="phone" type="tel" required placeholder="+225 XX XX XX XX">
+                <small style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.3rem;display:block">Nous vous contacterons rapidement par téléphone</small>
               </div>
 
               <div class="form-group">
-                <label for="subject">Sujet</label>
-                <input id="subject" name="subject" type="text" required placeholder="Ex: Demande de boîte individuelle">
+                <label for="service">Type de service souhaité *</label>
+                <select id="service" name="service" required style="padding:0.8rem;border:2px solid var(--accent-green);border-radius:4px;font-family:var(--font-primary);font-weight:300;font-size:1rem;width:100%;background:var(--white);transition:all .2s ease">
+                  <option value="">Sélectionnez un service</option>
+                  <option value="boite-individuelle">Boîte aux lettres individuelle</option>
+                  <option value="boite-collective">Boîte aux lettres collective</option>
+                  <option value="installation">Installation uniquement</option>
+                  <option value="maintenance">Maintenance / Réparation</option>
+                  <option value="devis">Demande de devis</option>
+                  <option value="autre">Autre demande</option>
+                </select>
               </div>
 
               <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="6" required placeholder="Décrivez votre demande en détail..."></textarea>
+                <label for="location">Localisation *</label>
+                <input id="location" name="location" type="text" required placeholder="Ville, Quartier (ex: Abidjan, Cocody)">
+                <small style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.3rem;display:block">Pour organiser la visite technique</small>
               </div>
 
-              <div style="display:flex;gap:0.75rem;align-items:center">
-                <button class="btn btn-primary" type="submit">Envoyer le message</button>
-                <label style="font-weight:400;font-size:0.95rem;margin-left:0.5rem"><input id="sendWhatsApp" type="checkbox" checked style="margin-right:0.4rem"> Envoyer aussi via WhatsApp (pré-rempli)</label>
+              <div class="form-group">
+                <label for="subject">Sujet du message *</label>
+                <input id="subject" name="subject" type="text" required placeholder="Ex: Demande de devis pour boîte individuelle">
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Décrivez votre projet en détail : nombre de boîtes souhaitées, contraintes particulières, délai souhaité, etc."></textarea>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:1rem">
+                <div style="display:flex;gap:0.75rem;align-items:flex-start">
+                  <input id="sendWhatsApp" type="checkbox" checked style="margin-top:0.3rem;width:18px;height:18px;cursor:pointer">
+                  <label for="sendWhatsApp" style="font-weight:400;font-size:0.95rem;cursor:pointer;line-height:1.5">Je souhaite recevoir aussi un message WhatsApp pré-rempli avec mes informations</label>
+                </div>
+                <button class="btn btn-primary" type="submit" style="width:100%;max-width:300px">📧 Envoyer le message</button>
+                <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem">En soumettant ce formulaire, vous acceptez d'être contacté par Ivoire Box concernant votre demande.</p>
               </div>
             </form>
           </div>
 
           <!-- Coordonnées de contact -->
-          <div class="contact-info-section">
+          <div class="contact-info-section reveal-hidden reveal-delay-1">
             <h2>Contactez-nous directement</h2>
+            <p style="color:var(--text-secondary);margin-bottom:1.5rem;font-size:0.95rem">Plusieurs moyens de nous joindre, choisissez celui qui vous convient le mieux</p>
             
-            <div class="contact-method">
-              <h3>📧 Email</h3>
-              <p><a href="mailto:infoagnakcorporation@gmail.com" class="contact-link">infoagnakcorporation@gmail.com</a></p>
-              <p class="contact-desc">Réponse sous 24h</p>
-            </div>
-
             <div class="contact-method">
               <h3>💬 WhatsApp</h3>
               <p><a href="https://wa.me/2250714606562?text=Bonjour%20Ivoire%20Box%2C%20je%20suis%20intéressé%20par%20vos%20services%20de%20boîtes%20aux%20lettres" class="contact-link" target="_blank">+225 07 14 60 65 62</a></p>
-              <p class="contact-desc">Réponse immédiate</p>
+              <p class="contact-desc">Réponse immédiate - Disponible 7j/7 de 8h à 20h</p>
             </div>
 
             <div class="contact-method">
-              <h3>👤 Propriétaire</h3>
+              <h3>📧 Email</h3>
+              <p><a href="mailto:infoagnakcorporation@gmail.com" class="contact-link">infoagnakcorporation@gmail.com</a></p>
+              <p class="contact-desc">Réponse garantie sous 24h ouvrées</p>
+            </div>
+
+            <div class="contact-method">
+              <h3>👤 Responsable</h3>
               <p><strong>Cédric</strong></p>
               <p class="contact-desc">Directeur - Ivoire Box</p>
             </div>
 
-            <div class="cta-buttons">
-              <a href="https://wa.me/2250714606562?text=Bonjour%20Ivoire%20Box%2C%20je%20suis%20intéressé%20par%20vos%20services%20de%20boîtes%20aux%20lettres" class="btn btn-whatsapp" target="_blank">💬 Discuter sur WhatsApp</a>
-              <a href="mailto:infoagnakcorporation@gmail.com" class="btn btn-email">📧 Envoyer un email</a>
+            <div class="contact-method" style="background:var(--bg-light);padding:1.5rem;border-radius:8px;margin-top:1.5rem">
+              <h3 style="color:var(--accent-green);margin-bottom:0.8rem">🕐 Horaires de contact</h3>
+              <p style="margin:0.3rem 0"><strong>Lundi - Vendredi :</strong> 8h00 - 18h00</p>
+              <p style="margin:0.3rem 0"><strong>Samedi :</strong> 9h00 - 16h00</p>
+              <p style="margin:0.3rem 0"><strong>Dimanche :</strong> Sur rendez-vous uniquement</p>
+              <p style="margin-top:0.8rem;font-size:0.9rem;color:var(--text-secondary)">Pour les urgences, contactez-nous via WhatsApp</p>
+            </div>
+
+            <div class="cta-buttons" style="margin-top:2rem">
+              <a href="https://wa.me/2250714606562?text=Bonjour%20Ivoire%20Box%2C%20je%20suis%20intéressé%20par%20vos%20services%20de%20boîtes%20aux%20lettres" class="btn btn-whatsapp" target="_blank" style="width:100%;text-align:center;justify-content:center">💬 Discuter sur WhatsApp</a>
+              <a href="mailto:infoagnakcorporation@gmail.com" class="btn btn-email" style="width:100%;text-align:center;justify-content:center">📧 Envoyer un email</a>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- FAQ Contact -->
+    <section class="faq container" style="padding:3rem 0;background:var(--bg-light);margin-top:3rem">
+      <h2 class="reveal-hidden" style="text-align:center;color:var(--accent-green);margin-bottom:2rem">Questions fréquentes sur le contact</h2>
+      
+      <div class="item reveal-hidden reveal-delay-1">
+        <div class="question">Quel est le délai de réponse ?</div>
+        <div class="answer">Nous nous engageons à vous répondre dans les 2 heures par WhatsApp et sous 24h par email. Pour les demandes urgentes, privilégiez le contact WhatsApp pour une réponse immédiate.</div>
+      </div>
+
+      <div class="item reveal-hidden reveal-delay-2">
+        <div class="question">La visite technique est-elle gratuite ?</div>
+        <div class="answer">Oui, la visite technique est entièrement gratuite et sans engagement. Un de nos techniciens se déplace pour évaluer votre site, prendre les mesures et vous proposer la meilleure solution adaptée à vos besoins.</div>
+      </div>
+
+      <div class="item reveal-hidden reveal-delay-3">
+        <div class="question">Puis-je obtenir un devis par téléphone ?</div>
+        <div class="answer">Oui, vous pouvez nous appeler ou nous contacter via WhatsApp pour obtenir un devis estimatif. Pour un devis précis et détaillé, nous recommandons une visite technique gratuite qui nous permettra d'évaluer toutes les spécificités de votre projet.</div>
+      </div>
+
+      <div class="item reveal-hidden reveal-delay-1">
+        <div class="question">Intervenez-vous dans toute la Côte d'Ivoire ?</div>
+        <div class="answer">Oui, nous intervenons dans toute la Côte d'Ivoire. Nos principales zones d'intervention sont Abidjan, Yamoussoukro, Bouaké, San-Pédro et leurs environs. Pour les autres régions, contactez-nous pour vérifier la disponibilité de nos services.</div>
+      </div>
+
+      <div class="item reveal-hidden reveal-delay-2">
+        <div class="question">Quels sont les moyens de paiement acceptés ?</div>
+        <div class="answer">Nous acceptons les paiements en espèces, par virement bancaire, par mobile money (Orange Money, MTN Mobile Money, Moov Money) et par chèque. Les modalités de paiement sont discutées lors de la validation du devis.</div>
+      </div>
+    </section>
+
+    <!-- Zone d'intervention -->
+    <section class="features" style="padding:3rem 0;background:var(--white)">
+      <div class="container">
+        <h2 class="reveal-hidden" style="text-align:center;color:var(--accent-green);margin-bottom:2rem">Nos zones d'intervention</h2>
+        
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem">
+          <div class="card reveal-hidden reveal-delay-1" style="text-align:center;padding:1.5rem">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.5rem">🏙️ Abidjan</h4>
+            <p style="font-size:0.9rem">Tous les quartiers</p>
+          </div>
+
+          <div class="card reveal-hidden reveal-delay-2" style="text-align:center;padding:1.5rem">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.5rem">🏛️ Yamoussoukro</h4>
+            <p style="font-size:0.9rem">Capitale politique</p>
+          </div>
+
+          <div class="card reveal-hidden reveal-delay-3" style="text-align:center;padding:1.5rem">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.5rem">🏭 Bouaké</h4>
+            <p style="font-size:0.9rem">Ville principale</p>
+          </div>
+
+          <div class="card reveal-hidden reveal-delay-1" style="text-align:center;padding:1.5rem">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.5rem">🌊 San-Pédro</h4>
+            <p style="font-size:0.9rem">Port principal</p>
+          </div>
+
+          <div class="card reveal-hidden reveal-delay-2" style="text-align:center;padding:1.5rem">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.5rem">📍 Autres villes</h4>
+            <p style="font-size:0.9rem">Sur demande</p>
+          </div>
+        </div>
+
+        <p class="reveal-hidden reveal-delay-3" style="text-align:center;margin-top:2rem;color:var(--text-secondary);font-size:0.95rem">Vous ne trouvez pas votre ville ? Contactez-nous, nous étudions chaque demande au cas par cas.</p>
       </div>
     </section>
   </main>
@@ -108,6 +246,85 @@
     </div>
   </footer>
 
-  <script src="js/nav.js" defer></script>
+  <script src="js/nav.js"></script>
+  <script src="js/animations.js"></script>
+  
+  <!-- Scroll animations -->
+  <script>
+    // Scroll animations avec Intersection Observer
+    (function initScrollAnimations(){
+      const isMobile = window.innerWidth <= 560;
+      const observerOptions = {
+        threshold: isMobile ? 0.05 : 0.1,
+        rootMargin: isMobile ? '0px 0px -30px 0px' : '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries){
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            requestAnimationFrame(() => {
+              entry.target.classList.add('reveal-visible');
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      function observeElements(){
+        const elements = document.querySelectorAll('.reveal-hidden, .reveal-left, .reveal-right, .reveal-scale');
+        elements.forEach(el => {
+          if(!el.classList.contains('reveal-visible')){
+            observer.observe(el);
+          }
+        });
+      }
+
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', function(){
+          setTimeout(observeElements, 50);
+        });
+      } else {
+        setTimeout(observeElements, 50);
+      }
+      
+      setTimeout(observeElements, 200);
+    })();
+
+    // FAQ accordion
+    (function initFAQ(){
+      function setupFAQ(){
+        const faqItems = document.querySelectorAll('.faq .item');
+        if(faqItems.length === 0) return;
+        
+        faqItems.forEach(item => {
+          const question = item.querySelector('.question');
+          if (!question) return;
+          
+          const newQuestion = question.cloneNode(true);
+          question.parentNode.replaceChild(newQuestion, question);
+          
+          newQuestion.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            item.classList.toggle('open');
+          });
+          
+          newQuestion.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            item.classList.toggle('open');
+          });
+        });
+      }
+      
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', setupFAQ);
+      } else {
+        setupFAQ();
+      }
+      
+      setTimeout(setupFAQ, 100);
+    })();
+  </script>
 </body>
 </html>
