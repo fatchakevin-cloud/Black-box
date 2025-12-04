@@ -240,20 +240,47 @@
       }
     })();
 
-    // FAQ accordion
-    document.addEventListener('DOMContentLoaded', function() {
-      const faqItems = document.querySelectorAll('.faq .item');
-      faqItems.forEach(item => {
-        const question = item.querySelector('.question');
-        if (question) {
-          question.addEventListener('click', function(e) {
+    // FAQ accordion - fonctionne immédiatement et après chargement
+    (function initFAQ(){
+      function setupFAQ(){
+        const faqItems = document.querySelectorAll('.faq .item');
+        if(faqItems.length === 0) return;
+        
+        faqItems.forEach(item => {
+          // Retirer les anciens event listeners si existants
+          const question = item.querySelector('.question');
+          if (!question) return;
+          
+          // Cloner et remplacer pour retirer les anciens listeners
+          const newQuestion = question.cloneNode(true);
+          question.parentNode.replaceChild(newQuestion, question);
+          
+          // Ajouter les nouveaux event listeners
+          newQuestion.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             item.classList.toggle('open');
           });
-        }
-      });
-    });
+          
+          // Support tactile pour mobile
+          newQuestion.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            item.classList.toggle('open');
+          });
+        });
+      }
+      
+      // Essayer immédiatement
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', setupFAQ);
+      } else {
+        setupFAQ();
+      }
+      
+      // Essayer aussi après un court délai au cas où
+      setTimeout(setupFAQ, 100);
+    })();
   </script>
 </body>
 </html>

@@ -15,18 +15,42 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // FAQ accordion - SIMPLIFIED APPROACH
   (function initFAQ() {
-    const faqItems = document.querySelectorAll('.faq .item');
-    faqItems.forEach(item => {
-      const question = item.querySelector('.question');
-      if (question) {
+    function setupFAQ() {
+      const faqItems = document.querySelectorAll('.faq .item');
+      if(faqItems.length === 0) return;
+      
+      faqItems.forEach(item => {
+        const question = item.querySelector('.question');
+        if (!question) return;
+        
+        // Vérifier si déjà initialisé
+        if(question.dataset.faqInitialized === 'true') return;
+        question.dataset.faqInitialized = 'true';
+        
         question.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          // Toggle the .open class
           item.classList.toggle('open');
         });
-      }
-    });
+        
+        // Support tactile pour mobile
+        question.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          item.classList.toggle('open');
+        });
+      });
+    }
+    
+    // Essayer immédiatement si DOM est prêt
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', setupFAQ);
+    } else {
+      setupFAQ();
+    }
+    
+    // Essayer aussi après un court délai
+    setTimeout(setupFAQ, 200);
   })();
   
   /* Testimonials carousel (separate from FAQ) */
