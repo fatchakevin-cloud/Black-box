@@ -65,6 +65,71 @@ document.addEventListener('DOMContentLoaded', function(){
     carousel.addEventListener('mouseleave', start);
   })();
 
+  /* Carousel des boîtes postales */
+  (function initBoxCarousel(){
+    const carousel = document.querySelector('.box-carousel');
+    if(!carousel) return;
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const indicators = carousel.querySelectorAll('.indicator');
+    const total = slides.length;
+    if(total === 0) return;
+
+    let currentIndex = 0;
+    let intervalId = null;
+
+    function showSlide(index){
+      // Remove active class from all slides and indicators
+      slides.forEach(slide => slide.classList.remove('active'));
+      indicators.forEach(indicator => indicator.classList.remove('active'));
+      
+      // Add active class to current slide and indicator
+      if(slides[index]) slides[index].classList.add('active');
+      if(indicators[index]) indicators[index].classList.add('active');
+    }
+
+    function nextSlide(){
+      currentIndex = (currentIndex + 1) % total;
+      showSlide(currentIndex);
+    }
+
+    function goToSlide(index){
+      if(index >= 0 && index < total){
+        currentIndex = index;
+        showSlide(currentIndex);
+        resetInterval();
+      }
+    }
+
+    function startInterval(){
+      if(intervalId) clearInterval(intervalId);
+      intervalId = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+    }
+
+    function resetInterval(){
+      startInterval();
+    }
+
+    // Add click handlers to indicators
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', function(){
+        goToSlide(index);
+      });
+    });
+
+    // Pause on hover
+    carousel.addEventListener('mouseenter', function(){
+      if(intervalId) clearInterval(intervalId);
+    });
+
+    carousel.addEventListener('mouseleave', function(){
+      startInterval();
+    });
+
+    // Start the carousel
+    showSlide(0);
+    if(total > 1) startInterval();
+  })();
+
   /* Form submit: AJAX to Formspree + optional WhatsApp open */
   (function initContactForm(){
     const form = document.getElementById('contactForm');
@@ -104,5 +169,5 @@ document.addEventListener('DOMContentLoaded', function(){
         if(submitBtn) submitBtn.disabled = false;
       }
     });
-  })();
-
+  })()
+});
