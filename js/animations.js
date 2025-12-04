@@ -78,38 +78,50 @@ document.addEventListener('DOMContentLoaded', function(){
     let intervalId = null;
     let touchStartX = 0;
     let touchEndX = 0;
+    let isSwiping = false;
 
     function showSlide(index){
+      if(index < 0 || index >= total) return;
+      
       // Remove active class from all slides and indicators
       slides.forEach(slide => slide.classList.remove('active'));
       indicators.forEach(indicator => indicator.classList.remove('active'));
       
       // Add active class to current slide and indicator
-      if(slides[index]) slides[index].classList.add('active');
-      if(indicators[index]) indicators[index].classList.add('active');
+      if(slides[index]) {
+        slides[index].classList.add('active');
+      }
+      if(indicators[index]) {
+        indicators[index].classList.add('active');
+      }
+      
+      currentIndex = index;
     }
 
     function nextSlide(){
-      currentIndex = (currentIndex + 1) % total;
-      showSlide(currentIndex);
+      const next = (currentIndex + 1) % total;
+      showSlide(next);
     }
 
     function prevSlide(){
-      currentIndex = (currentIndex - 1 + total) % total;
-      showSlide(currentIndex);
+      const prev = (currentIndex - 1 + total) % total;
+      showSlide(prev);
     }
 
     function goToSlide(index){
       if(index >= 0 && index < total){
-        currentIndex = index;
-        showSlide(currentIndex);
+        showSlide(index);
         resetInterval();
       }
     }
 
     function startInterval(){
       if(intervalId) clearInterval(intervalId);
-      intervalId = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+      if(total > 1) {
+        intervalId = setInterval(function(){
+          if(!isSwiping) nextSlide();
+        }, 3000);
+      }
     }
 
     function resetInterval(){
@@ -118,24 +130,33 @@ document.addEventListener('DOMContentLoaded', function(){
 
     // Add click/touch handlers to indicators
     indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', function(e){
+      function handleIndicatorClick(e){
         e.preventDefault();
+        e.stopPropagation();
         goToSlide(index);
-      });
-      indicator.addEventListener('touchend', function(e){
-        e.preventDefault();
-        goToSlide(index);
-      });
+      }
+      indicator.addEventListener('click', handleIndicatorClick);
+      indicator.addEventListener('touchend', handleIndicatorClick);
     });
 
     // Touch swipe support for mobile
     carousel.addEventListener('touchstart', function(e){
+      isSwiping = true;
       touchStartX = e.changedTouches[0].screenX;
+      if(intervalId) clearInterval(intervalId);
+    }, {passive: true});
+
+    carousel.addEventListener('touchmove', function(e){
+      isSwiping = true;
     }, {passive: true});
 
     carousel.addEventListener('touchend', function(e){
       touchEndX = e.changedTouches[0].screenX;
       handleSwipe();
+      setTimeout(function(){
+        isSwiping = false;
+        resetInterval();
+      }, 100);
     }, {passive: true});
 
     function handleSwipe(){
@@ -150,7 +171,6 @@ document.addEventListener('DOMContentLoaded', function(){
           // Swipe right - previous slide
           prevSlide();
         }
-        resetInterval();
       }
     }
 
@@ -160,12 +180,12 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     carousel.addEventListener('mouseleave', function(){
-      startInterval();
+      resetInterval();
     });
 
     // Start the carousel
     showSlide(0);
-    if(total > 1) startInterval();
+    startInterval();
   })();
 
   /* Form submit: AJAX to Formspree + optional WhatsApp open */
