@@ -237,17 +237,23 @@
   
   <!-- Inline scripts to ensure they run on mobile -->
   <script>
-    // Scroll animations avec Intersection Observer
+    // Scroll animations avec Intersection Observer - Optimisé pour mobile et desktop
     (function initScrollAnimations(){
+      // Détecter si on est sur mobile
+      const isMobile = window.innerWidth <= 560;
+      
       const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: isMobile ? 0.05 : 0.1, // Plus sensible sur mobile
+        rootMargin: isMobile ? '0px 0px -30px 0px' : '0px 0px -50px 0px' // Déclenche plus tôt sur mobile
       };
 
       const observer = new IntersectionObserver(function(entries){
         entries.forEach(entry => {
           if(entry.isIntersecting){
-            entry.target.classList.add('reveal-visible');
+            // Ajouter la classe avec un petit délai pour s'assurer que le navigateur peut animer
+            requestAnimationFrame(() => {
+              entry.target.classList.add('reveal-visible');
+            });
             // Ne plus observer une fois animé pour de meilleures performances
             observer.unobserve(entry.target);
           }
@@ -258,19 +264,33 @@
       function observeElements(){
         const elements = document.querySelectorAll('.reveal-hidden, .reveal-left, .reveal-right, .reveal-scale');
         elements.forEach(el => {
-          observer.observe(el);
+          // S'assurer que l'élément est bien dans l'état initial
+          if(!el.classList.contains('reveal-visible')){
+            observer.observe(el);
+          }
         });
       }
 
       // Initialiser immédiatement et après chargement
       if(document.readyState === 'loading'){
-        document.addEventListener('DOMContentLoaded', observeElements);
+        document.addEventListener('DOMContentLoaded', function(){
+          setTimeout(observeElements, 50);
+        });
       } else {
-        observeElements();
+        setTimeout(observeElements, 50);
       }
       
-      // Observer aussi après un court délai pour s'assurer que tout est chargé
-      setTimeout(observeElements, 100);
+      // Observer aussi après un délai pour s'assurer que tout est chargé
+      setTimeout(observeElements, 200);
+      
+      // Réobserver après resize pour gérer le changement mobile/desktop
+      let resizeTimer;
+      window.addEventListener('resize', function(){
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function(){
+          observeElements();
+        }, 250);
+      });
     })();
 
     // Initialize carousel immediately (fallback)
