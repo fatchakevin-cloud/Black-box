@@ -1,17 +1,98 @@
-// Simple animation helpers: reveal on scroll + smooth scroll for anchors
+// Advanced animation helpers: reveal on scroll + smooth scroll for anchors
 document.addEventListener('DOMContentLoaded', function(){
-  // Reveal on scroll - SIMPLIFIED: content is visible by default, just add light fade animation
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach((entry, index) => {
+      if(entry.isIntersecting) {
+        const element = entry.target;
+        const delay = index * 0.1;
+        
+        setTimeout(() => {
+          element.classList.add('reveal-visible');
+          
+          // Add specific animation classes based on element type
+          if(element.classList.contains('feature')) {
+            element.style.animationDelay = `${delay}s`;
+            element.classList.add('fade-in-up');
+          } else if(element.classList.contains('card')) {
+            element.style.animationDelay = `${delay}s`;
+            element.classList.add('scale-in');
+          } else {
+            element.classList.add('fade-in-up');
+          }
+        }, delay * 100);
+        
+        observer.unobserve(element);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all reveal-hidden elements
   const reveals = document.querySelectorAll('.reveal-hidden');
-  reveals.forEach(el => el.classList.add('fade-in-up'));
+  reveals.forEach((el, index) => {
+    // Stagger animations for grid items
+    if(el.parentElement && el.parentElement.classList.contains('grid')) {
+      const gridItems = Array.from(el.parentElement.children);
+      const itemIndex = gridItems.indexOf(el);
+      el.style.transitionDelay = `${itemIndex * 0.1}s`;
+    }
+    observer.observe(el);
+  });
+
+  // Animate features with stagger effect
+  const features = document.querySelectorAll('.feature');
+  features.forEach((feature, index) => {
+    feature.style.animationDelay = `${index * 0.15}s`;
+    observer.observe(feature);
+  });
+
+  // Animate cards with stagger effect
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card, index) => {
+    if(!card.closest('.testimonial-card')) {
+      card.style.animationDelay = `${index * 0.1}s`;
+      observer.observe(card);
+    }
+  });
 
   // Smooth scroll for internal links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e){
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
-      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      if(target) {
+        target.scrollIntoView({
+          behavior:'smooth',
+          block:'start'
+        });
+        // Add animation trigger
+        setTimeout(() => {
+          target.classList.add('reveal-visible');
+        }, 500);
+      }
     });
   });
+
+  // Add scroll-triggered header animation
+  let lastScroll = 0;
+  const header = document.querySelector('.site-header');
+  if(header) {
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      if(currentScroll > 100) {
+        header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+        header.style.transform = 'translateY(0)';
+      } else {
+        header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+      }
+      lastScroll = currentScroll;
+    });
+  }
 
   // FAQ accordion - SIMPLIFIED APPROACH
   (function initFAQ() {
