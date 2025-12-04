@@ -111,12 +111,12 @@ html,body{height:100%;font-family:var(--font-primary);font-weight:300;line-heigh
   .main-nav a{margin-left:0}
   .services .grid{grid-template-columns:1fr}
   .hero h1{font-size:1.8rem}
-  .box-carousel{height:400px;min-height:400px}
-  .carousel-container{height:100%;padding:0.5rem}
-  .carousel-slide{padding:0.5rem}
-  .carousel-slide img{max-width:95%;max-height:95%;width:auto;height:auto}
-  .carousel-indicators{bottom:15px;gap:8px}
-  .indicator{width:10px;height:10px;min-width:10px;min-height:10px}
+  .box-carousel{height:350px;min-height:350px;max-height:350px}
+  .carousel-container{height:100%;padding:10px;box-sizing:border-box}
+  .carousel-slide{padding:10px;box-sizing:border-box}
+  .carousel-slide img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+  .carousel-indicators{bottom:10px;gap:8px;z-index:30}
+  .indicator{width:10px;height:10px;min-width:10px;min-height:10px;flex-shrink:0}
 }
 
 /* Animations & reveal utilities - SIMPLIFIED: no layout shifts */

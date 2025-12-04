@@ -162,20 +162,93 @@
   <script src="js/nav.js"></script>
   <script src="js/animations.js"></script>
   
-  <!-- Inline FAQ script to ensure it runs -->
+  <!-- Inline scripts to ensure they run on mobile -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Initialize FAQ accordion
-      const faqItems = document.querySelectorAll('.faq .item');
-      console.log('Initializing FAQ with', faqItems.length, 'items');
+    // Initialize carousel immediately (fallback)
+    (function(){
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', initCarousel);
+      } else {
+        initCarousel();
+      }
       
+      function initCarousel(){
+        const carousel = document.querySelector('.box-carousel');
+        if(!carousel) return;
+        
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const indicators = carousel.querySelectorAll('.indicator');
+        const total = slides.length;
+        if(total === 0) return;
+
+        let currentIndex = 0;
+        let intervalId = null;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function showSlide(index){
+          if(index < 0 || index >= total) return;
+          slides.forEach(s => s.classList.remove('active'));
+          indicators.forEach(i => i.classList.remove('active'));
+          if(slides[index]) slides[index].classList.add('active');
+          if(indicators[index]) indicators[index].classList.add('active');
+          currentIndex = index;
+        }
+
+        function nextSlide(){
+          showSlide((currentIndex + 1) % total);
+        }
+
+        function prevSlide(){
+          showSlide((currentIndex - 1 + total) % total);
+        }
+
+        // Touch events
+        carousel.addEventListener('touchstart', function(e){
+          touchStartX = e.touches[0].clientX;
+          if(intervalId) clearInterval(intervalId);
+        }, {passive: true});
+
+        carousel.addEventListener('touchend', function(e){
+          touchEndX = e.changedTouches[0].clientX;
+          const diff = touchStartX - touchEndX;
+          if(Math.abs(diff) > 50){
+            if(diff > 0) nextSlide();
+            else prevSlide();
+          }
+          startInterval();
+        }, {passive: true});
+
+        // Indicators
+        indicators.forEach((ind, idx) => {
+          ind.addEventListener('click', () => showSlide(idx));
+          ind.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            showSlide(idx);
+          });
+        });
+
+        function startInterval(){
+          if(intervalId) clearInterval(intervalId);
+          if(total > 1){
+            intervalId = setInterval(nextSlide, 3000);
+          }
+        }
+
+        showSlide(0);
+        startInterval();
+      }
+    })();
+
+    // FAQ accordion
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqItems = document.querySelectorAll('.faq .item');
       faqItems.forEach(item => {
         const question = item.querySelector('.question');
         if (question) {
           question.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('FAQ item clicked, toggling open');
             item.classList.toggle('open');
           });
         }
