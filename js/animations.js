@@ -76,6 +76,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
     let currentIndex = 0;
     let intervalId = null;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
     function showSlide(index){
       // Remove active class from all slides and indicators
@@ -89,6 +91,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function nextSlide(){
       currentIndex = (currentIndex + 1) % total;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide(){
+      currentIndex = (currentIndex - 1 + total) % total;
       showSlide(currentIndex);
     }
 
@@ -109,14 +116,45 @@ document.addEventListener('DOMContentLoaded', function(){
       startInterval();
     }
 
-    // Add click handlers to indicators
+    // Add click/touch handlers to indicators
     indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', function(){
+      indicator.addEventListener('click', function(e){
+        e.preventDefault();
+        goToSlide(index);
+      });
+      indicator.addEventListener('touchend', function(e){
+        e.preventDefault();
         goToSlide(index);
       });
     });
 
-    // Pause on hover
+    // Touch swipe support for mobile
+    carousel.addEventListener('touchstart', function(e){
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    carousel.addEventListener('touchend', function(e){
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, {passive: true});
+
+    function handleSwipe(){
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if(Math.abs(diff) > swipeThreshold){
+        if(diff > 0){
+          // Swipe left - next slide
+          nextSlide();
+        } else {
+          // Swipe right - previous slide
+          prevSlide();
+        }
+        resetInterval();
+      }
+    }
+
+    // Pause on hover (desktop only)
     carousel.addEventListener('mouseenter', function(){
       if(intervalId) clearInterval(intervalId);
     });
