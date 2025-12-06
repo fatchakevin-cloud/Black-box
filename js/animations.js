@@ -1,9 +1,10 @@
 // Advanced animation helpers: reveal on scroll + smooth scroll for anchors
 document.addEventListener('DOMContentLoaded', function(){
-  // Intersection Observer for scroll animations
+  // Intersection Observer for scroll animations - Amélioré
+  const isMobile = window.innerWidth <= 560;
   const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: isMobile ? 0.05 : 0.1,
+    rootMargin: isMobile ? '0px 0px -30px 0px' : '0px 0px -50px 0px'
   };
 
   const observer = new IntersectionObserver(function(entries) {
@@ -12,20 +13,24 @@ document.addEventListener('DOMContentLoaded', function(){
         const element = entry.target;
         const delay = index * 0.1;
         
-        setTimeout(() => {
-          element.classList.add('reveal-visible');
-          
-          // Add specific animation classes based on element type
-          if(element.classList.contains('feature')) {
-            element.style.animationDelay = `${delay}s`;
-            element.classList.add('fade-in-up');
-          } else if(element.classList.contains('card')) {
-            element.style.animationDelay = `${delay}s`;
-            element.classList.add('scale-in');
-          } else {
-            element.classList.add('fade-in-up');
-          }
-        }, delay * 100);
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            element.classList.add('reveal-visible');
+            
+            // Add specific animation classes based on element type
+            if(element.classList.contains('feature')) {
+              element.style.animationDelay = `${delay}s`;
+              element.classList.add('fade-in-up');
+            } else if(element.classList.contains('card')) {
+              element.style.animationDelay = `${delay}s`;
+              element.classList.add('scale-in');
+            } else if(element.classList.contains('image-animate')) {
+              element.classList.add('fade-in-up');
+            } else {
+              element.classList.add('fade-in-up');
+            }
+          }, delay * 100);
+        });
         
         observer.unobserve(element);
       }
@@ -33,43 +38,76 @@ document.addEventListener('DOMContentLoaded', function(){
   }, observerOptions);
 
   // Observe all reveal-hidden elements
-  const reveals = document.querySelectorAll('.reveal-hidden');
-  reveals.forEach((el, index) => {
-    // Stagger animations for grid items
-    if(el.parentElement && el.parentElement.classList.contains('grid')) {
-      const gridItems = Array.from(el.parentElement.children);
-      const itemIndex = gridItems.indexOf(el);
-      el.style.transitionDelay = `${itemIndex * 0.1}s`;
-    }
-    observer.observe(el);
+  function observeElements() {
+    const reveals = document.querySelectorAll('.reveal-hidden, .image-animate');
+    reveals.forEach((el, index) => {
+      if(el.classList.contains('reveal-visible')) return;
+      
+      // Stagger animations for grid items
+      if(el.parentElement && el.parentElement.classList.contains('grid')) {
+        const gridItems = Array.from(el.parentElement.children);
+        const itemIndex = gridItems.indexOf(el);
+        el.style.transitionDelay = `${itemIndex * 0.1}s`;
+      }
+      observer.observe(el);
+    });
+
+    // Animate features with stagger effect
+    const features = document.querySelectorAll('.feature');
+    features.forEach((feature, index) => {
+      if(!feature.classList.contains('reveal-visible')) {
+        feature.style.animationDelay = `${index * 0.15}s`;
+        observer.observe(feature);
+      }
+    });
+
+    // Animate cards with stagger effect
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card, index) => {
+      if(!card.classList.contains('reveal-visible')) {
+        card.style.animationDelay = `${index * 0.1}s`;
+        observer.observe(card);
+      }
+    });
+  }
+
+  // Initialiser immédiatement et après chargement
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', observeElements);
+  } else {
+    observeElements();
+  }
+  
+  // Réobserver après un délai pour s'assurer que tout est chargé
+  setTimeout(observeElements, 200);
+  
+  // Réobserver après resize pour gérer le changement mobile/desktop
+  let resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){
+      observeElements();
+    }, 250);
   });
 
-  // Animate features with stagger effect
-  const features = document.querySelectorAll('.feature');
-  features.forEach((feature, index) => {
-    feature.style.animationDelay = `${index * 0.15}s`;
-    observer.observe(feature);
-  });
-
-  // Animate cards with stagger effect
-  const cards = document.querySelectorAll('.card');
-  cards.forEach((card, index) => {
-    if(!card.closest('.testimonial-card')) {
-      card.style.animationDelay = `${index * 0.1}s`;
-      observer.observe(card);
-    }
-  });
-
-  // Smooth scroll for internal links
+  // Smooth scroll for internal links - Amélioré
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e){
+      const href = this.getAttribute('href');
+      if(href === '#' || href === '#!') return;
+      
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
+      const target = document.querySelector(href);
       if(target) {
-        target.scrollIntoView({
-          behavior:'smooth',
-          block:'start'
+        const headerOffset = 80;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         });
+        
         // Add animation trigger
         setTimeout(() => {
           target.classList.add('reveal-visible');
@@ -134,104 +172,6 @@ document.addEventListener('DOMContentLoaded', function(){
     setTimeout(setupFAQ, 200);
   })();
   
-  /* Testimonials carousel (separate from FAQ) */
-  (function initTestimonials(){
-    const carousel = document.querySelector('.testimonials-carousel');
-    if(!carousel) return;
-    const slides = carousel.querySelectorAll('.testimonial-slide');
-    const indicatorsContainer = document.querySelector('.testimonials-indicators');
-    const total = slides.length;
-    if(total === 0) return;
-
-    // Create indicators
-    if(indicatorsContainer && total > 1){
-      for(let i = 0; i < total; i++){
-        const indicator = document.createElement('span');
-        indicator.className = 'testimonial-indicator' + (i === 0 ? ' active' : '');
-        indicator.setAttribute('aria-label', 'Témoignage ' + (i + 1));
-        indicator.addEventListener('click', () => goToSlide(i));
-        indicator.addEventListener('touchend', (e) => {
-          e.preventDefault();
-          goToSlide(i);
-        });
-        indicatorsContainer.appendChild(indicator);
-      }
-    }
-
-    const indicators = document.querySelectorAll('.testimonial-indicator');
-
-    // position slides horizontally
-    slides.forEach((s, n) => { s.style.transform = `translateX(${n * 100}%)`; });
-
-    let idx = 0;
-    let intervalId = null;
-
-    function show(i){
-      slides.forEach((s, n) => { s.style.transform = `translateX(${(n - i) * 100}%)`; });
-      indicators.forEach((ind, n) => {
-        ind.classList.toggle('active', n === i);
-      });
-    }
-
-    function goToSlide(index){
-      if(index >= 0 && index < total){
-        idx = index;
-        show(idx);
-        resetInterval();
-      }
-    }
-
-    function start(){
-      if(intervalId) return;
-      if(total > 1){
-        intervalId = setInterval(() => { 
-          idx = (idx + 1) % total; 
-          show(idx); 
-        }, 5000);
-      }
-    }
-
-    function stop(){
-      if(intervalId){ clearInterval(intervalId); intervalId = null; }
-    }
-
-    function resetInterval(){
-      stop();
-      start();
-    }
-
-    // Touch swipe support
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    carousel.addEventListener('touchstart', function(e){
-      touchStartX = e.touches[0].clientX;
-      stop();
-    }, {passive: true});
-
-    carousel.addEventListener('touchend', function(e){
-      touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX - touchEndX;
-      if(Math.abs(diff) > 50){
-        if(diff > 0){
-          goToSlide((idx + 1) % total);
-        } else {
-          goToSlide((idx - 1 + total) % total);
-        }
-      } else {
-        resetInterval();
-      }
-    }, {passive: true});
-
-    // start automatically
-    show(idx);
-    if(total > 1) start();
-
-    // pause on hover
-    carousel.addEventListener('mouseenter', stop);
-    carousel.addEventListener('mouseleave', start);
-  })();
-
   /* Carousel des boîtes postales */
   (function initBoxCarousel(){
     const carousel = document.querySelector('.box-carousel');
@@ -353,6 +293,54 @@ document.addEventListener('DOMContentLoaded', function(){
     // Start the carousel
     showSlide(0);
     startInterval();
+  })();
+
+  /* Compteurs animés pour les statistiques */
+  (function initAnimatedCounters(){
+    const counters = document.querySelectorAll('.stat-number');
+    if(counters.length === 0) return;
+
+    const animateCounter = (counter) => {
+      const target = parseInt(counter.getAttribute('data-target')) || 0;
+      const duration = 2000; // 2 secondes
+      const increment = target / (duration / 16); // 60fps
+      let current = 0;
+
+      const updateCounter = () => {
+        current += increment;
+        if(current < target) {
+          counter.textContent = Math.floor(current);
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.textContent = target;
+        }
+      };
+
+      updateCounter();
+    };
+
+    // Observer pour déclencher l'animation quand la section est visible
+    const statsSection = document.querySelector('.stats-section');
+    if(statsSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            counters.forEach(counter => {
+              if(!counter.classList.contains('animated')) {
+                counter.classList.add('animated');
+                animateCounter(counter);
+              }
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+      });
+
+      observer.observe(statsSection);
+    }
   })();
 
   /* Form submit: AJAX to Formspree + optional WhatsApp open */

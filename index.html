@@ -36,10 +36,10 @@
         <source src="videos/hero-background.webm" type="video/webm">
       </video>
       -->
-      <div class="container">
-        <h1>Du concept à l'impact</h1>
-        <p>Solutions de boîtes aux lettres sécurisées et modernes en Côte d'Ivoire. Sécurité, accessibilité et tranquillité d'esprit pour votre courrier personnel et professionnel.</p>
-        <p><a class="btn" href="services.html" style="animation:fadeInUp 1s ease 0.6s both">Découvrir nos services</a></p>
+      <div class="container hero-content">
+        <h1 class="hero-title">Du concept à l'impact</h1>
+        <p class="hero-subtitle">Solutions de boîtes aux lettres sécurisées et modernes en Côte d'Ivoire. Sécurité, accessibilité et tranquillité d'esprit pour votre courrier personnel et professionnel.</p>
+        <p class="hero-btn-wrapper"><a class="btn" href="services.html">Découvrir nos services</a></p>
       </div>
     </section>
 
@@ -47,16 +47,16 @@
     <section class="box-carousel">
       <div class="carousel-container">
         <div class="carousel-slide active">
-          <img src="boite postal 1.jpg" alt="Boîte postale Ivoire Box - Modèle 1">
+          <img src="boite postal 1.jpg" alt="Boîte postale Ivoire Box - Modèle 1" class="image-hover-effect">
         </div>
         <div class="carousel-slide">
-          <img src="boite postal 2.jpg" alt="Boîte postale Ivoire Box - Modèle 2">
+          <img src="boite postal 2.jpg" alt="Boîte postale Ivoire Box - Modèle 2" class="image-hover-effect">
         </div>
         <div class="carousel-slide">
-          <img src="boite postal 3.jpg" alt="Boîte postale Ivoire Box - Modèle 3">
+          <img src="boite postal 3.jpg" alt="Boîte postale Ivoire Box - Modèle 3" class="image-hover-effect">
         </div>
         <div class="carousel-slide">
-          <img src="boite postal 4.jpg" alt="Boîte postale Ivoire Box - Modèle 4">
+          <img src="boite postal 4.jpg" alt="Boîte postale Ivoire Box - Modèle 4" class="image-hover-effect">
         </div>
       </div>
       <div class="carousel-indicators">
@@ -64,6 +64,34 @@
         <span class="indicator" data-slide="1" aria-label="Image 2"></span>
         <span class="indicator" data-slide="2" aria-label="Image 3"></span>
         <span class="indicator" data-slide="3" aria-label="Image 4"></span>
+      </div>
+    </section>
+
+    <!-- Section Statistiques -->
+    <section class="stats-section reveal-hidden">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card reveal-hidden reveal-delay-1">
+            <span class="stat-icon">📦</span>
+            <span class="stat-number" data-target="500">0</span>
+            <span class="stat-label">Boîtes installées</span>
+          </div>
+          <div class="stat-card reveal-hidden reveal-delay-2">
+            <span class="stat-icon">👥</span>
+            <span class="stat-number" data-target="350">0</span>
+            <span class="stat-label">Clients satisfaits</span>
+          </div>
+          <div class="stat-card reveal-hidden reveal-delay-3">
+            <span class="stat-icon">🏆</span>
+            <span class="stat-number" data-target="5">0</span>
+            <span class="stat-label">Années d'expérience</span>
+          </div>
+          <div class="stat-card reveal-hidden reveal-delay-4">
+            <span class="stat-icon">⭐</span>
+            <span class="stat-number" data-target="98">0</span>
+            <span class="stat-label">% Satisfaction</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -75,7 +103,9 @@
     <section class="features container">
       <h2 class="reveal-hidden">Nos atouts</h2>
       <div class="features-illustration" style="display:flex;gap:1.5rem;align-items:center;margin-bottom:1.5rem">
-        <img src="assets/images/iconographie.jpg" loading="lazy" alt="Iconographie Ivoire Box" style="max-width:140px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.08)">
+        <div class="image-hover-effect image-animate reveal-hidden">
+          <img src="assets/images/iconographie.jpg" loading="lazy" alt="Iconographie Ivoire Box" style="max-width:140px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.08)">
+        </div>
         <p style="font-size:1rem;color:var(--text-secondary);max-width:720px;margin:0">Chez Ivoire Box, nous combinons innovation et fiabilité pour vous offrir des solutions de boîtes aux lettres modernes. Notre expertise couvre tous vos besoins : réception sécurisée de courrier, gestion simplifiée et accessibilité optimale pour votre tranquillité d'esprit.</p>
       </div>
       <div class="grid">
